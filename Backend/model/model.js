@@ -13,11 +13,8 @@ const registerSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
+    }
+    ,
     phoneNumber: {
         type: Number,
         required: true

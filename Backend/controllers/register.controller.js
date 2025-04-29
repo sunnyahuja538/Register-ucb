@@ -10,8 +10,8 @@ module.exports.register=async(req,res)=>{
     {
         throw new Error(errors.array());
     }
-    const {fullName,email,password,phoneNumber,employeeName,employeeEmail,employeePhoneNumber}=req.body;
-    const details=await registerServices.register({fullName,email,password,phoneNumber,employeeName,employeeEmail,employeePhoneNumber});
+    const {fullName,email,phoneNumber,employeeName,employeeEmail,employeePhoneNumber}=req.body;
+    const details=await registerServices.register({fullName,email,phoneNumber,employeeName,employeeEmail,employeePhoneNumber});
     res.json(details);
     }
     catch(error){
