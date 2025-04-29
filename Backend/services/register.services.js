@@ -7,7 +7,7 @@ module.exports.register=async({fullName,email,password,phoneNumber,employeeName,
         const passwordHash=await bcrypt.hash(password,10);
         const details=await registerModel.create({fullName,email,password:passwordHash,phoneNumber,employeeName,employeeEmail,employeePhoneNumber});
         client.messages.create({
-            body: `Hello ${employeeName.firstName} ${fullName.lastName}\m New User Registration:Name: ${fullName.firstName} ${fullName.lastName}\nEmail: ${email}\nPhone: ${phoneNumber}Please contact the user as soon as possible.`,
+            body: `Hello ${employeeName.firstName} ${fullName.lastName}\n New User Registration:\nName: ${fullName.firstName} ${fullName.lastName}\nEmail: ${email}\nPhone: ${phoneNumber}Please contact the user as soon as possible.`,
             from: "+16602855573",
             to: "+91"+employeePhoneNumber
         })

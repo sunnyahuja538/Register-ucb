@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+
 
 const Form = () => {
     const [firstName, setFirstName] = useState('')
@@ -14,6 +16,7 @@ const Form = () => {
 
     const submit = async (e) => {
         e.preventDefault();
+        try{
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/register`, {
             fullName: {
                 firstName: firstName,
@@ -29,7 +32,23 @@ const Form = () => {
             employeeEmail,
             employeePhoneNumber,
         })
+        toast.success('Message Send Successfully');
         console.log(response.data);
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setNumber('');
+        setEmployeeFirstName('');
+        setEmployeeSecondName('');
+        setEmployeeEmail('');
+        setEmployeePhoneNumber('');
+        setPassword('');
+    }
+    catch(err){
+        toast.error('Message Failed');
+        throw new Error(err);
+    }
+
     }
 
     return (

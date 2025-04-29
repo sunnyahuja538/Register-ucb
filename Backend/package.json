@@ -6,6 +6,7 @@
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "http": "^0.0.1-security",
+    "mongo-sanitize": "^1.1.0",
     "mongoose": "^8.14.0",
     "twilio": "^5.5.2"
   }
