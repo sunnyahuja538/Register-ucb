@@ -4,6 +4,6 @@ db.connection();
 const app = require('./app');
 const http=require('http');
 const server=http.createServer(app);
-server.listen(process.env.PORT,()=>{
-    console.log(`Server is running on port ${process.env.PORT}`);
+server.listen(process.env.NEW_PORT,()=>{
+    console.log(`Server is running on port ${process.env.NEW_PORT}`);
 });
