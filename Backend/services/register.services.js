@@ -6,7 +6,7 @@ module.exports.register=async({fullName,email,phoneNumber,employeeName,employeeE
     try{
         const details=await registerModel.create({fullName,email,phoneNumber,employeeName,employeeEmail,employeePhoneNumber});
         client.messages.create({
-            body: `\nHello ${employeeName.firstName} ${fullName.lastName}\n New User Registration:\nName: ${fullName.firstName} ${fullName.lastName}\nEmail: ${email}\nPhone: ${phoneNumber}Please contact the user as soon as possible.`,
+            body: `\nHello ${employeeName.firstName.charAt(0).toUpperCase()+employeeName.firstName.slice(1).toLowerCase()} ${employeeName.lastName}\n New User Registration:\nName: ${fullName.firstName.charAt(0).toUpperCase()+fullName.firstName.slice(1).toLowerCase()} ${fullName.lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nPlease contact the user as soon as possible.`,
             from: "+16602855573",
             to: "+91"+employeePhoneNumber
         })
