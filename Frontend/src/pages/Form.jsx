@@ -316,8 +316,9 @@ const Form = () => {
                     <div className="flex justify-center mt-6">
                         <button
                             type="submit"
-                            className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-10 rounded-xl transition duration-300 cursor-pointer"
+                            className={`bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-10 rounded-xl transition duration-300 cursor-pointer ${processing ? 'cursor-wait' : ''}`}
                             disabled={processing}
+                        
                         >
                             {processing?'Processing...':'Submit'}
                         </button>
