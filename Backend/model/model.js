@@ -10,31 +10,42 @@ const registerSchema = new mongoose.Schema({
             required: true
         }
     },
+    phoneNumber:{
+        type: Number,
+        required: true
+    },
+    company:{
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true
     }
     ,
-    phoneNumber: {
-        type: Number,
+    image1:{
+        type: String,
+        required: true
+    },
+    image2:{
+        type: String,
+        required: true
+    },
+    department:{
+        type: String,
         required: true
     },
     employeeName:{
-        firstName:{
-            type: String,
-            required: true
-        },
-        lastName:{
-            type: String,
-            required: true
-        }
+        type: String,
+        required: true
     },
     employeeEmail:{
         type: String,
         required: true
     },
-    employeePhoneNumber:{
-        type: Number,
+    
+    description:{
+        type: String,
         required: true
     }
 });
