@@ -317,6 +317,7 @@ const Form = () => {
                         <button
                             type="submit"
                             className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-10 rounded-xl transition duration-300 cursor-pointer"
+                            disabled={processing}
                         >
                             {processing?'Processing...':'Submit'}
                         </button>
