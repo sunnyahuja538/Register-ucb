@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import 'remixicon/fonts/remixicon.css'
 
@@ -21,26 +21,38 @@ const Form = () => {
     const [suggestion,setSuggestions]=useState([]);
     const [isUserTyping, setIsUserTyping] = useState(false);
     const [processing, setProcessing] = useState(false);
+    const [file1,setFile1]=useState(null);
+    const [file2,setFile2]=useState(null);
+    const file1inputRef=useRef(null);
+    const file2inputRef=useRef(null);
     //const [flag,setFlag]=useState(false);
     const submit = async (e) => {
         e.preventDefault();
         setProcessing(true);
+        setErrors({});
         try{
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/register`, {
-            fullName: {
-                firstName: firstName,
-                lastName: lastName
-            },
-            email,
-            employeeName: employeeFirstName,
-            phoneNumber:number,
-            employeeEmail,
-           
-            company,
-            image1,
-            image2,
-            department,
-            description
+            const formData = new FormData();
+
+            formData.append('firstName', firstName);
+            formData.append('lastName', lastName);
+            formData.append('email', email);
+            formData.append('number', number);
+            formData.append('employeeName', employeeFirstName);
+            formData.append('employeeEmail', employeeEmail);
+            formData.append('department', department);
+            formData.append('company', company);
+            formData.append('description', description);
+            //formData.append('description', description);
+            formData.append('image1', image1);
+            formData.append('image2', image2);
+            formData.append('phoneNumber', number);
+            formData.append('file1', file1);  //  these must match Multer field names
+            formData.append('file2', file2);  
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/register`,formData,
+            {
+            headers:{
+            'Content-Type':'multipart/form-data'
+            }
         })
        
         toast.success('Message Send Successfully');
@@ -50,8 +62,18 @@ const Form = () => {
         setEmail('');
         setNumber('');
         setEmployeeFirstName('');
-        setEmployeeSecondName('');
+        // //setEmployeeSecondName('');
         setEmployeeEmail('');
+        setDepartment('');
+        setCompany('');
+        setImage1(null);
+        setImage2(null);
+        setDescription('');
+        setFile1(null);
+        setFile2(null);
+        file1inputRef.current.value='';
+        file2inputRef.current.value='';
+
     }
     catch(err){
         if(err?.response?.data?.errors){
@@ -66,8 +88,8 @@ const Form = () => {
         toast.error('Message Failed');
         throw new Error(err);
         }
-        setProcessing(false);
     }
+    setProcessing(false);
 
     }
 
@@ -163,10 +185,12 @@ const Form = () => {
                             onChange={(e)=>{
                                 const file=e.target.files[0];
                                 if(file){
-                            const url=URL.createObjectURL(file);
+                                    setFile1(file);
+                            const url=URL.createObjectURL(file);//this is a string
                             setImage1(url);
                                 }
                             }}
+                            ref={file1inputRef}
                            
                         />
                         {errors?.image1&&<p className='text-red-500 text-sm'>{errors.image1}</p>}
@@ -202,10 +226,12 @@ const Form = () => {
                             onChange={(e)=>{
                                 const file=e.target.files[0];
                                 if(file){
+                                    setFile2(file);
                                     const url=URL.createObjectURL(file);
                                     setImage2(url);
                                 }
                             }}
+                          ref={file2inputRef}
                         />
                         {errors?.image2&&<p className='text-red-500 text-sm'>{errors.image2}</p>}
                         {
@@ -272,12 +298,13 @@ const Form = () => {
                                 onChange={(e) => setEmployeeSecondName(e.target.value)}
                             />*/}
                             {console.log(suggestion.length)}
-                            {suggestion.length>0&&<ul className='h-fit bg-red-600'>
+                            {suggestion.length>0&&<ul className='h-fit bg-gray-200 p-3'>
                                 {suggestion.map((s,index)=>{
-                                    return <li key={index} onClick={()=>{
+                                    return <li className='mb-1' key={index} onMouseDown={()=>{
                                         console.log(s.name);
                                         setIsUserTyping(false);
                                         setEmployeeFirstName(s.name);
+                                        setEmployeeEmail(s.email);
                                         setSuggestions([]);
                                     }}>{s.name}</li>
                                 })}

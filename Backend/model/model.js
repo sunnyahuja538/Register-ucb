@@ -47,7 +47,8 @@ const registerSchema = new mongoose.Schema({
     description:{
         type: String,
         required: true
-    }
+    },
+   
 });
 const  registerModel = mongoose.model('Register', registerSchema);
 module.exports = registerModel;
