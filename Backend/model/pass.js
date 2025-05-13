@@ -18,10 +18,17 @@ const passSchema = new mongoose.Schema({
             type: String,
             required:true
         },
+        visitorId:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Register'
+        },
         qrCode: {
             type: String,
             required:true
         },
+        checkOutTime:{
+            type:Date
+        }
     
 });
 

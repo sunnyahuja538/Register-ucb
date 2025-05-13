@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import 'remixicon/fonts/remixicon.css'
+import Webcam from 'react-webcam'
 
 const Form = () => {
     const [firstName, setFirstName] = useState('')
@@ -21,39 +22,52 @@ const Form = () => {
     const [suggestion,setSuggestions]=useState([]);
     const [isUserTyping, setIsUserTyping] = useState(false);
     const [processing, setProcessing] = useState(false);
-    const [file1,setFile1]=useState(null);
-    const [file2,setFile2]=useState(null);
-    const file1inputRef=useRef(null);
-    const file2inputRef=useRef(null);
+    const [webCam1,setWebCam1]=useState(null);
+    const [webCam2,setWebCam2]=useState(null);
+    const webCamRef=useRef(null);
+    const webCamRearRef=useRef(null);
     //const [flag,setFlag]=useState(false);
+    const capture=(setImage,ref)=>{
+        const imageSrc=ref.current.getScreenshot();
+        setImage(imageSrc);
+
+    }
     const submit = async (e) => {
         e.preventDefault();
         setProcessing(true);
         setErrors({});
         try{
-            const formData = new FormData();
+            // const formData = new FormData();
 
-            formData.append('firstName', firstName);
-            formData.append('lastName', lastName);
-            formData.append('email', email);
-            formData.append('number', number);
-            formData.append('employeeName', employeeFirstName);
-            formData.append('employeeEmail', employeeEmail);
-            formData.append('department', department);
-            formData.append('company', company);
-            formData.append('description', description);
-            //formData.append('description', description);
-            formData.append('image1', image1);
-            formData.append('image2', image2);
-            formData.append('phoneNumber', number);
-            formData.append('file1', file1);  //  these must match Multer field names
-            formData.append('file2', file2);  
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/register`,formData,
-            {
-            headers:{
-            'Content-Type':'multipart/form-data'
+            // formData.append('firstName', firstName);
+            // formData.append('lastName', lastName);
+            // formData.append('email', email);
+            // formData.append('number', number);
+            // formData.append('employeeName', employeeFirstName);
+            // formData.append('employeeEmail', employeeEmail);
+            // formData.append('department', department);
+            // formData.append('company', company);
+            // formData.append('description', description);
+            // //formData.append('description', description);
+            // formData.append('image1', image1);
+            // formData.append('image2', image2);
+            // formData.append('phoneNumber', number);
+            // formData.append('file1', file1);  //  these must match Multer field names
+            // formData.append('file2', file2);  
+            const formData={
+                firstName,
+                lastName,
+                company,
+                phoneNumber:number,
+                email,
+                employeeName:employeeFirstName,
+                description,
+                image1,
+                employeeEmail,
+                image2,
+                department
             }
-        })
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/register`,formData,)
        
         toast.success('Message Send Successfully');
         console.log(response.data);
@@ -69,10 +83,10 @@ const Form = () => {
         setImage1(null);
         setImage2(null);
         setDescription('');
-        setFile1(null);
-        setFile2(null);
-        file1inputRef.current.value='';
-        file2inputRef.current.value='';
+        // setFile1(null);
+        // setFile2(null);
+        // file1inputRef.current.value='';
+        // file2inputRef.current.value='';
 
     }
     catch(err){
@@ -179,7 +193,7 @@ const Form = () => {
                     <div>
                         <h2 className="text-lg font-semibold mb-2 text-gray-700">Upload your photograph</h2>
                         
-                        <input
+                        {/* <input
                             className="bg-white rounded-md h-10 w-full px-3 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-neutral-300"
                             id="fileInput" type='file' accept=".jpeg, .jpg, .png"
                             onChange={(e)=>{
@@ -192,7 +206,34 @@ const Form = () => {
                             }}
                             ref={file1inputRef}
                            
-                        />
+                        /> */}
+                        {
+                            webCam1?
+                            <>
+                            <Webcam
+                            ref={webCamRef}
+                            screenshotFormat="image/jpeg"
+                            videoConstraints={{
+                                height:720,
+                                width:1024,
+                                facingMode:'user'
+                            }}
+                            />
+                            <button onClick={()=>{
+                                capture(setImage1,webCamRef);
+                                setWebCam1(false);
+                            }} className="bg-blue-500 text-white px-4 py-1 rounded mt-2">
+                                    Capture
+                            </button>
+                            </>:
+                            <>
+                            <button onClick={()=>{
+                                setWebCam1(true);
+                            }} className="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer">
+                                <i className="ri-upload-2-line align-middle"></i>
+                            </button>
+                                </>
+                        }
                         {errors?.image1&&<p className='text-red-500 text-sm'>{errors.image1}</p>}
                         {image1 && (
         <div>
@@ -202,7 +243,7 @@ const Form = () => {
           />
         </div>
       )}
-                        <label htmlFor="fileInput" style={{
+                        {/* <label htmlFor="fileInput" style={{
                                     paddingLeft: '5px',
 
         backgroundColor: '#007bff',
@@ -215,12 +256,12 @@ const Form = () => {
         width:'40px'
       }}>
         <i className="ri-upload-2-line align-middle ml-1.5"></i>
-      </label>
+      </label> */}
                     </div>
                     <div>
                         <h2 className="text-lg font-semibold mb-2 text-gray-700">Upload your id proof</h2>
                         
-                        <input
+                        {/* <input
                             className="bg-white rounded-md h-10 w-full px-3 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-neutral-300"
                             id="fileInput1" type='file' accept=".jpeg, .jpg, .png"
                             onChange={(e)=>{
@@ -232,7 +273,33 @@ const Form = () => {
                                 }
                             }}
                           ref={file2inputRef}
-                        />
+                        /> */
+                        
+                            webCam2?
+                            <>
+                            <Webcam
+                            ref={webCamRearRef}
+                            screenshotFormat="image/jpeg"
+                            videoConstraints={{
+                                height:720,
+                                width:1024,
+                                facingMode:'environment'//for rear
+                            }}
+                            />
+                            <button onClick={()=>{
+                                capture(setImage2,webCamRearRef);
+                                setWebCam2(false);
+                            }} className="bg-blue-500 text-white px-4 py-1 rounded mt-2">
+                                    Capture
+                            </button>
+                            </>:
+                            <>
+                            <button onClick={()=>{
+                                setWebCam2(true);
+                            }} className="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer">
+                                <i className="ri-upload-2-line align-middle"></i>
+                            </button>
+                                </>}
                         {errors?.image2&&<p className='text-red-500 text-sm'>{errors.image2}</p>}
                         {
                             image2&&
@@ -243,7 +310,7 @@ const Form = () => {
                                 />
                             </div>
                         }
-                        <label htmlFor="fileInput1" style={{
+                        {/* <label htmlFor="fileInput1" style={{
         paddingLeft: '5px',
         backgroundColor: '#007bff',
         marginTop: '10px',
@@ -256,7 +323,7 @@ const Form = () => {
 
       }}>
         <i className="ri-upload-2-line align-middle ml-1.5"></i>
-      </label>
+      </label> */}
       </div>
 
                     {/* Employee Details */}

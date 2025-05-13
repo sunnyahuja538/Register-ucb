@@ -5,7 +5,7 @@ const multer=require('multer');
 const {body}=require('express-validator');
 const upload=multer({dest:'uploads/'});
 router.post('/register',
-    upload.fields([{name:'file1'},{name:'file2'}]),
+    // upload.fields([{name:'file1'},{name:'file2'}]),
 
     body('email').isEmail().withMessage('Invalid Email'),
     body('firstName').notEmpty().withMessage('Name should not be empty').bail().isLength({min:3}).withMessage('Name must be at least 3 characters long'),
@@ -22,6 +22,7 @@ router.post('/register',
     registerController.register);
     router.get('/employee-suggestions',registerController.getEmployeeSuggestions);
     router.get('/respond',registerController.respond);
+    router.get('/checkout',registerController.checkout);
     
 
 module.exports=router;
