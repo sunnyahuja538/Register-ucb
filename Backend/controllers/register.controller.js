@@ -3,6 +3,7 @@ const {validationResult}=require('express-validator');
 const sanitize=require('mongo-sanitize');
 const registerModel = require('../model/model');
 const Pass = require('../model/pass');
+const employeeModel = require('../model/employee-model');
 module.exports.register=async(req,res)=>{
     
     req.body=sanitize(req.body);
@@ -77,5 +78,15 @@ module.exports.respond=async(req,res)=>{
                 <p>${pass.checkOutTime}</p>
                 <p>Thank you for visiting!</p>
             </div>
-        `);
+`);
+}
+module.exports.getDepartment=async(req,res)=>{
+    try{
+        const department=await employeeModel.distinct('department');
+        console.log(department);
+        res.json(department);
     }
+    catch(err){
+        throw new Error(err);
+    }
+}

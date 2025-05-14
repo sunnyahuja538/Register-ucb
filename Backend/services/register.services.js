@@ -41,7 +41,7 @@ module.exports.register=async({firstName,lastName,company,email,image1,image2,ph
     <!-- Details Section -->
     <div style="width:50%; mr-16%;">
       <h2 style="margin-bottom: 16px; color: #222;">New Employee Registered</h2>
-      <p><strong>Name:</strong> ${details.fullName.firstName}</p>
+      <p><strong>Name:</strong> ${details.fullName.firstName} ${details.fullName.lastName}</p>
       <p><strong>Company:</strong> ${details.company}</p>
       <p><strong>Email:</strong> <a href="mailto:${details.email}" style="color: #007BFF;">${details.email}</a></p>
       <p><strong>Phone:</strong> ${details.phoneNumber}</p>

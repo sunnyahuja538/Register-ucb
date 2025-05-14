@@ -24,6 +24,7 @@ const Form = () => {
     const [processing, setProcessing] = useState(false);
     const [webCam1,setWebCam1]=useState(null);
     const [webCam2,setWebCam2]=useState(null);
+    const [departments,setDepartments]=useState([]);
     const webCamRef=useRef(null);
     const webCamRearRef=useRef(null);
     //const [flag,setFlag]=useState(false);
@@ -106,7 +107,18 @@ const Form = () => {
     setProcessing(false);
 
     }
-
+useEffect(()=>{
+    (async function fetchdep(){
+    try{
+    const response=await axios.get(`${import.meta.env.VITE_BASE_URL}/departments`);
+    setDepartments(response.data);
+        }
+        
+    catch(err){
+        throw new Error(err);
+    }
+    })()
+},[])
 
 
     useEffect(()=>{
@@ -239,7 +251,6 @@ const Form = () => {
         <div>
           <p>Preview:</p>
           <img src={image1} alt="Preview" className='h-20 w-15'
-          onClick={() => window.open(image1, "_blank")}
           />
         </div>
       )}
@@ -306,7 +317,7 @@ const Form = () => {
                             <div>
                                 <p>Preview:</p>
                                 <img src={image2} alt="Preview" className='h-20 w-15'
-                                onClick={() => window.open(image2, "_blank")}
+                                
                                 />
                             </div>
                         }
@@ -340,8 +351,13 @@ const Form = () => {
                             }}
                         >
                             <option value="">Department</option>
-                            <option value="Engineering">IT</option>
-                            <option value="Human Resources">HR</option>
+                            {departments.map((dep,idx)=>{
+                                return <option key={idx} value={dep}>{dep}</option>
+                            }
+                            )
+                        }
+                        {/* {console.log(departments)} */}
+                           
                         </select>
                         {errors?.department&&<p className='text-red-500 text-sm'>{errors.department}</p>}
                     </div>
@@ -379,7 +395,7 @@ const Form = () => {
                         </div>
                     </div>
 
-                    <div>
+                    {/* <div>
                         <h2 className="text-lg font-semibold mb-2 text-gray-700">Enter Employee Email</h2>
                         <input
                             className="bg-white rounded-md h-10 w-full px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-neutral-300"
@@ -387,7 +403,7 @@ const Form = () => {
                             onChange={(e) => setEmployeeEmail(e.target.value)}
                         />
                         {errors?.employeeEmail&&<p className='text-red-500 text-sm'>{errors.employeeEmail}</p>}
-                    </div>
+                    </div> */}
 
                     {/* <div>
                         <h2 className="text-lg font-semibold mb-2 text-gray-700">Enter Employee Phone Number</h2>

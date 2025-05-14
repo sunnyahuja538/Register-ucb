@@ -23,6 +23,7 @@ router.post('/register',
     router.get('/employee-suggestions',registerController.getEmployeeSuggestions);
     router.get('/respond',registerController.respond);
     router.get('/checkout',registerController.checkout);
+    router.get('/departments',registerController.getDepartment);
     
 
 module.exports=router;
