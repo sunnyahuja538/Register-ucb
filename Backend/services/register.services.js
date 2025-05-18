@@ -36,24 +36,50 @@ module.exports.register=async({firstName,lastName,company,email,image1,image2,ph
             subject:"New Visitor",
             text: `and easy to do anywhere, even with Node.js`,
             html: `
-            <div style="max-width: 500px; margin: auto; font-family: Arial, sans-serif; color: #333; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
-  <div style="display: flex; justify-content: space-around; align-items: flex-start; gap: 50px;">
+            <div style="max-width: 500px; margin: auto; font-family: Arial, sans-serif; color: #333; border: 1px solid #ddd; padding: 10px; border-radius: 8px;">
+  <div style="display: flex; align-items: flex-start;">
     <!-- Details Section -->
-    <div style="width:50%; mr-16%;">
+    <div style="width:70%;">
       <h2 style="margin-bottom: 16px; color: #222;">New Visitor</h2>
-      <p><strong>Name:</strong> ${details.fullName.firstName} ${details.fullName.lastName}</p>
-      <p><strong>Company:</strong> ${details.company}</p>
-      <p><strong>Email:</strong> <a href="mailto:${details.email}" style="color: #007BFF;">${details.email}</a></p>
-      <p><strong>Phone:</strong> ${details.phoneNumber}</p>
-      <p><strong>Department:</strong> ${details.department}</p>
-      <p><strong>Employee Name:</strong> ${details.employeeName}</p>
-      <p><strong>Employee Email:</strong> <a href="mailto:${details.employeeEmail}" style="color: #007BFF;">${details.employeeEmail}</a></p>
-      <p><strong>Description:</strong> ${details.description}</p>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 6px 0; font-weight: bold;">Name:</td>
+          <td style="padding: 6px 0;">${details.fullName.firstName} ${details.fullName.lastName}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; font-weight: bold;">Company:</td>
+          <td style="padding: 6px 0;">${details.company}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; font-weight: bold;">Email:</td>
+          <td style="padding: 6px 0;"><a href="mailto:${details.email}" style="color: #007BFF;">${details.email}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; font-weight: bold;">Phone:</td>
+          <td style="padding: 6px 0;">${details.phoneNumber}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; font-weight: bold;">Department: </td>
+          <td style="padding: 6px 0;">${details.department}</td>
+        </tr>
+        <tr>
+          <td style="padding: 3px 0; font-weight: bold;">EmployeeName:</td>
+          <td style="padding: 6px 3px;">${details.employeeName}</td>
+        </tr>
+        <tr>
+          <td style="padding: 3px 0; font-weight: bold;">EmployeeEmail:</td>
+          <td style="padding:6px 3px"><a href="mailto:${details.employeeEmail}" style="color: #007BFF;">${details.employeeEmail}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; font-weight: bold;">Description:</td>
+          <td style="padding: 6px 0;">${details.description}</td>
+        </tr>
+      </table>
     </div>
 
     <!-- Image Section -->
-    <div style="flex-shrink: 0;">
-      <img src="cid:img1" alt="Employee Image" style="width: 120px; height: 120px; border-radius: 12px; object-fit: cover;" />
+    <div >
+      <img src="cid:img1" alt="Employee Image" style="width: 100px; height: 120px; border-radius: 12px; object-fit: cover;" />
     </div>
   </div>
 
