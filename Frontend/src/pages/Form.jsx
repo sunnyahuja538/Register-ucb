@@ -101,6 +101,7 @@ const Form = () => {
         }
         else{
         toast.error('Message Failed');
+        setProcessing(false);
         throw new Error(err);
         }
     }
@@ -142,7 +143,7 @@ useEffect(()=>{
     }
     })()
     },[employeeFirstName]);
-    return (
+    return (<>{(processing)?<img className='ml-[45%] mt-[18%] h-[10%] w-[10%]' src="https://assets-v2.lottiefiles.com/a/91cc0ece-1150-11ee-b7cb-d3afb5c0c001/QNF78Uk4YE.gif"/>:
         <div className="min-h-screen flex items-center justify-center bg-gray-300">
             <form onSubmit={submit} className="bg-gray-100 p-8 rounded-2xl shadow-2xl w-full max-w-lg">
                 <h1 className="text-2xl font-semibold text-center mb-8 text-gray-800 underline decoration-gray-500">Enter Your Details</h1>
@@ -436,6 +437,8 @@ useEffect(()=>{
                 </div>
             </form>
         </div>
+    }
+    </>
     )
 }
 
