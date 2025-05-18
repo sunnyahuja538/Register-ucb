@@ -143,7 +143,7 @@ useEffect(()=>{
     }
     })()
     },[employeeFirstName]);
-    return (<>{(processing)?<div className='h-screen w-screen flex justify-center items-center'><div className='h-[20%] w-[20%]'><p className='text-2xl text-center mr-15 font-mono font-semibold'>Please Wait</p><img className='h-[80%] w-[80%]' src="https://assets-v2.lottiefiles.com/a/91cc0ece-1150-11ee-b7cb-d3afb5c0c001/QNF78Uk4YE.gif"/></div></div>:
+    return (<>{(processing)?<div className='h-screen w-screen flex justify-center items-center'><div className='h-[20%] w-[20%]'><p className='mr-[15%] text-center text-xl font-mono font-semibold md:text-2xl'>Please Wait</p><img className='h-[80%] w-[80%]' src="https://assets-v2.lottiefiles.com/a/91cc0ece-1150-11ee-b7cb-d3afb5c0c001/QNF78Uk4YE.gif"/></div></div>:
         <div className="min-h-screen flex items-center justify-center bg-gray-300">
             <form onSubmit={submit} className="bg-gray-100 p-8 rounded-2xl shadow-2xl w-full max-w-lg">
                 <h1 className="text-2xl font-semibold text-center mb-8 text-gray-800 underline decoration-gray-500">Enter Your Details</h1>
